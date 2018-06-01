@@ -30,8 +30,24 @@ export default class Home extends React.Component {
     toggleOrAndOperator(flag){
         this.setState({flag : flag})
     }
+    
+    displaySelectedValue(){
+    	let selectedItems = this.state.selectedItems,
+    		dispalyText = "";
+    	if(selectedItems.length === 1){
+    		dispalyText=  selectedItems.join(',');
+    	}else{
+    		dispalyText = selectedItems[0]+" (+"+(selectedItems.length - 1)+")";
+    	}
+    	return 	<div>
+    				<div>
+    					<span className="tickSign">&#10003;</span>
+    					<span>{dispalyText}</span>
+    		   		</div>
+    		   		<span className="downArrow"></span>
+    		   	</div>
+    }
                               
-
     render() {
         var features = [];
         return (
@@ -39,11 +55,11 @@ export default class Home extends React.Component {
            <DropDown    options={this.state.data} 
                         selectedItems ={this.state.selectedItems}
                         multiSelect={true}
-                        width = {200}
+                        width = {300}
                         flag ={this.state.flag}
                         toggleOrAndOperator = {this.toggleOrAndOperator.bind(this)}
                         onSelect ={this.onSelect.bind(this)}>
-                {this.state.selectedItems.length === 0 ? "Select Values" : this.state.selectedItems.join(',')}
+                {this.state.selectedItems.length === 0 ? <div><span>Select Values</span><span className="downArrow"></span> </div>: this.displaySelectedValue()}
             </DropDown>
           </div>
         );
