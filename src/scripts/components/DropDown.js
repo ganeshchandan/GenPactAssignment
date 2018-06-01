@@ -39,7 +39,7 @@ export default class DropDown extends React.Component {
     }
     
     showHideDropDown(e){
-        this.setState({show : !this.state.show ,rect  : e.target.getBoundingClientRect()});
+        this.setState({show : !this.state.show ,rect  : e.currentTarget.getBoundingClientRect()});
     }
     
     renderListElements(){
@@ -132,7 +132,7 @@ export default class DropDown extends React.Component {
 
     renderDropDownBoby(){
         let rect = this.state.rect,
-            style= {top : rect.top + rect.height,left : rect.left},
+            style= {top : rect.top + rect.height,left : rect.left,width : this.props.width},
             dropdownClear = "dropdown-clear";
         if(this.props.selectedItems.length === 0){
             dropdownClear = dropdownClear + " disableClearSection"
@@ -159,7 +159,7 @@ export default class DropDown extends React.Component {
         return (
             <div className="dropdown" style={{width : this.props.width}}>
                <div className="dropDown-placeholder" onClick={this.showHideDropDown.bind(this)} style={{width : this.props.width}}>
-                    <label>{this.props.children}</label>
+                	{this.props.children}
                 </div>
                 {this.state.show ? this.renderDropDownBoby() : <noscript/>}
             </div>
